@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Two Sum: follow one decision</title>
+<style>
+:root{color-scheme:light;font-family:Arial,sans-serif;background:#f7f8fb;color:#17243b}*{box-sizing:border-box}body{margin:0}main{max-width:1240px;margin:auto;padding:28px 24px 40px}h1{font-size:30px;letter-spacing:-.6px;margin:0 0 8px}header p{color:#526079;margin:0 0 22px;line-height:1.5}nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}button{font:inherit;cursor:pointer;border:1px solid #aebacf;background:#fff;color:#17243b;border-radius:8px;padding:11px 16px}button[aria-pressed=true],#play-step{background:#145ccc;color:#fff;border-color:#145ccc}button:disabled{opacity:.4;cursor:default}button:focus-visible,a:focus-visible,video:focus-visible{outline:3px solid #145ccc;outline-offset:4px}h2{font-size:24px;margin:0 0 14px;font-weight:600}video{display:block;width:100%;aspect-ratio:16/9;background:#f7f8fb;border:1px solid #d9dfe9;border-radius:12px}#step-status{margin:16px 0 12px;font-size:17px;font-weight:600}.controls{display:flex;flex-wrap:wrap;gap:10px}.downloads{display:flex;gap:20px;flex-wrap:wrap;font-size:14px;margin-top:20px}a{color:#145ccc;text-underline-offset:3px}.hint{font-size:14px;line-height:1.6;color:#526079;margin:14px 0}footer{margin-top:28px;font-size:13px;color:#657187;line-height:1.6}@media(max-width:600px){main{padding:20px 12px}h1{font-size:25px}h2{font-size:21px}nav button{flex:1;padding:10px 8px;font-size:13px}.controls button{flex:1;font-size:14px;padding:11px 8px}}
+section:fullscreen{padding:20px;background:#f7f8fb;display:flex;flex-direction:column;justify-content:center}section:fullscreen video{height:calc(100dvh -200px);object-fit:contain}section:fullscreen .hint,section:fullscreen .downloads{display:none}
+</style></head><body><main>
+<header><h1>Two Sum: follow one decision</h1><p>Same numbers: [1, 3, 4, 7]. Same target: 10. Three ways to find the pair.</p></header>
+<nav aria-label="Choose a solution"><button data-lesson="0" aria-pressed="true">1 · Brute force</button><button data-lesson="1" aria-pressed="false">2 · Two pointers</button><button data-lesson="2" aria-pressed="false">3 · Hash map</button></nav>
+<section id="lesson" aria-labelledby="question"><h2 id="question"></h2>
+<video id="lesson-video" playsinline preload="metadata" aria-label="Two Sum concept animation"></video>
+<p id="step-status" aria-live="polite"></p>
+<div class="controls"><button id="previous">Previous</button><button id="play-step">Play this step</button><button id="next">Next</button><button id="play-full">Play full clip</button><button id="fullscreen">Fullscreen</button></div>
+<p class="hint">Use Next to reveal one step at a time. Play this step animates that decision and pauses before the next one. The clips have captions and no audio.</p>
+<div class="downloads"><a id="download-video" download>Download MP4</a><a id="diagram">Key diagram (PNG)</a><a href="focused/lessons.json">Teaching steps</a></div>
+</section><footer><a href="style-comparison.html">Earlier visual styles</a> · <a href="README.md">Files and replay instructions</a><br>The two-pointer clip starts with sorted values and explains only why a sum below the target lets us move the left pointer.</footer>
+</main><script>
+const lessons={"numbers":[1,3,4,7],"target":10,"fps":30,"lessons":[{"id":"BruteForce","slug":"brute-force","method":"Brute force","title":"Try each later index","question":"How do we try every pair once?","takeaway":"Hold one number. Try only the numbers after it.","duration":29,"poster":22.8,"steps":[{"at":0,"label":"The problem","caption":"Find two different indexes whose values add to 10."},{"at":3.2,"label":"Hold 1, try 3","caption":"Hold 1 in place. Try the number just after it."},{"at":7,"label":"Keep 1, try 4","caption":"Keep 1 in place. Move the second selection to 4."},{"at":10.6,"label":"Keep 1, try 7","caption":"Keep 1 in place. Try the last number, 7."},{"at":14.2,"label":"Advance the first selection","caption":"1 has no partner. Now hold 3."},{"at":16.7,"label":"Start just after 3","caption":"Start just after 3. Try 4."},{"at":20.3,"label":"Predict the next sum","caption":"Keep 3. Try 7. What do they add up to?"},{"at":24.5,"label":"The result","caption":"Hold one number. Try only the numbers after it."}]},{"id":"TwoPointers","slug":"two-pointers","method":"Sorted array + two pointers","title":"Why can the left pointer move?","question":"Why can we safely discard 1?","takeaway":"Even the biggest partner is too small, so 1 cannot work.","duration":28,"poster":16.5,"steps":[{"at":0,"label":"Start with sorted values","caption":"These values are already sorted, from smallest to biggest."},{"at":3.2,"label":"Try the two ends","caption":"1 + 7 makes 8. The target is 10."},{"at":7.2,"label":"Pause and predict","caption":"Could 1 work with either of the smaller partners?"},{"at":10.7,"label":"See why it cannot work","caption":"3 and 4 are smaller than 7. They can only make a smaller sum."},{"at":15,"label":"Discard 1","caption":"Even 1 + 7 is too small. So 1 cannot reach 10 with any partner."},{"at":19,"label":"Move the left pointer","caption":"Move left to 3. Keep 7. What is the new sum?"},{"at":23.5,"label":"The result","caption":"We moved left because the smallest value could not work."}]},{"id":"HashMap","slug":"hash-map","method":"Hash map","title":"Remember where each number was","question":"How does remembering a number save a search?","takeaway":"Need 3? The note gives its earlier index: 1.","duration":31,"poster":22.5,"steps":[{"at":0,"label":"The problem","caption":"Find two different indexes whose values add to 10."},{"at":3.2,"label":"Remember 1 at index 0","caption":"We need 9. It is not in the note, so remember 1 at index 0."},{"at":7.7,"label":"Remember 3 at index 1","caption":"We need 7. It is not in the note, so remember 3 at index 1."},{"at":12.2,"label":"Remember 4 at index 2","caption":"We need 6. It is not in the note, so remember 4 at index 2."},{"at":16.7,"label":"Name the missing partner","caption":"We are at 7. Which earlier number do we need?"},{"at":21,"label":"Use the saved index","caption":"Need 3? The note gives its earlier index: 1."},{"at":26,"label":"The result","caption":"The note gives index 1. The current number is at index 3."}]}]}.lessons;
+const video=document.querySelector('#lesson-video');
+const status=document.querySelector('#step-status');
+let active=0, currentStep=0, stopAt=null;
+function updateStep() {
+  const lesson=lessons[active];
+  currentStep=lesson.steps.reduce((index,step,i)=>video.currentTime>=step.at?i:index,0);
+  status.textContent=`${currentStep+1} / ${lesson.steps.length} · ${lesson.steps[currentStep].label}`;
+  document.querySelector('#previous').disabled=currentStep===0;
+  document.querySelector('#next').disabled=currentStep===lesson.steps.length-1;
+}
+function seekStep(index) {
+  const lesson=lessons[active];
+  currentStep=Math.max(0,Math.min(lesson.steps.length-1,index));
+  stopAt=null;video.pause();video.currentTime=lesson.steps[currentStep].at+.75;updateStep();
+}
+function selectLesson(index) {
+  active=index;stopAt=null;currentStep=0;video.pause();
+  const lesson=lessons[index];
+  document.querySelector('#question').textContent=lesson.question;
+  video.src=`focused/videos/${lesson.slug}.mp4`;
+  video.poster=`focused/preview/${lesson.slug}-start.png`;
+  video.setAttribute('aria-label',`${lesson.method}: ${lesson.question}`);
+  document.querySelector('#download-video').href=video.src;
+  document.querySelector('#diagram').href=`focused/preview/${lesson.slug}${lesson.slug==='hash-map'?'-final':''}.png`;
+  document.querySelectorAll('[data-lesson]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.lesson)===index)));
+  updateStep();
+}
+video.addEventListener('loadedmetadata',()=>seekStep(0));
+video.addEventListener('timeupdate',()=>{
+  if(stopAt!==null && video.currentTime>=stopAt-.1){
+    const end=stopAt;stopAt=null;video.pause();video.currentTime=end-.12;
+  }
+  updateStep();
+});
+document.querySelectorAll('[data-lesson]').forEach(button=>button.addEventListener('click',()=>selectLesson(Number(button.dataset.lesson))));
+document.querySelector('#previous').addEventListener('click',()=>seekStep(currentStep-1));
+document.querySelector('#next').addEventListener('click',()=>seekStep(currentStep+1));
+document.querySelector('#play-step').addEventListener('click',()=>{
+  if(!video.paused){video.pause();return;}
+  const lesson=lessons[active];
+  video.currentTime=lesson.steps[currentStep].at;
+  stopAt=lesson.steps[currentStep+1]?.at ?? lesson.duration;
+  video.play().catch(()=>{status.textContent='Press the video play control to begin.';});
+});
+document.querySelector('#play-full').addEventListener('click',()=>{
+  stopAt=null;video.currentTime=0;video.play().catch(()=>{status.textContent='Press the video play control to begin.';});
+});
+video.addEventListener('play',()=>{document.querySelector('#play-step').textContent='Pause';});
+video.addEventListener('pause',()=>{document.querySelector('#play-step').textContent='Play this step';});
+document.querySelector('#fullscreen').addEventListener('click',()=>{
+  const lesson=document.querySelector('#lesson');
+  if(lesson.requestFullscreen)lesson.requestFullscreen().catch(()=>{});
+  else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();
+});
+selectLesson(0);
+</script></body></html>

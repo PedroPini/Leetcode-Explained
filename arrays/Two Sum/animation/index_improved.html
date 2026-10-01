@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two Sum · See each decision</title>
+<style>
+:root{color-scheme:light;--ink:#183347;--muted:#576a76;--line:#dce5e7;--blue:#2563b4;--blue-bg:#e6f0ff;--purple:#8053b9;--purple-bg:#f1e7ff;--green:#167452;--green-bg:#dff5e9;--paper:#fff;--bg:#f4f7f6;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+*{box-sizing:border-box}body{margin:0}button,select{font:inherit;color:inherit}button,select{border:1px solid var(--line);background:#fff;border-radius:9px;min-height:44px}button{cursor:pointer;padding:10px 16px;font-weight:600}button:hover:not(:disabled){border-color:#92aaa3;background:#f0f6f3}button:disabled{opacity:.4;cursor:default}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}button[aria-pressed=true]{background:var(--ink);color:white;border-color:var(--ink)}a{color:var(--green);text-underline-offset:4px}main{max-width:1140px;padding:32px 28px 24px;margin:auto}.eyebrow{font-size:11px;letter-spacing:1.6px;font-weight:750;text-transform:uppercase;color:var(--green)}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:24px}h1{font-size:34px;letter-spacing:-1.1px;margin:7px 0 8px}header p{margin:0;font-size:15px;color:var(--muted);line-height:1.5}.problem-tag{background:var(--green-bg);border:1px solid #c4e4d4;padding:14px 18px;border-radius:12px;white-space:nowrap;font-size:13px}.problem-tag strong{display:block;font-size:23px;margin-top:4px;letter-spacing:-.5px}nav{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}nav button{text-align:left;padding:14px 17px;display:flex;align-items:center;gap:12px}nav .number{font-size:12px;opacity:.7}nav small{display:block;font-size:12px;font-weight:400;margin-top:4px;opacity:.8}.workspace{display:grid;grid-template-columns:minmax(0,1fr) 242px;gap:18px;align-items:start}.lesson{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 6px 25px #16382804}.explanation{padding:23px 28px 18px;border-bottom:1px solid var(--line);min-height:137px}.step-meta{display:flex;gap:12px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:10px}.phase{color:var(--green);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 7px;background:var(--green-bg);border-radius:5px}h2{font-size:24px;letter-spacing:-.6px;margin:0 0 9px;line-height:1.2}.caption{font-size:15px;line-height:1.6;margin:0;color:var(--muted)}.visual{padding:22px 28px 18px}.array-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:12px;color:var(--muted)}.array-heading strong{color:var(--ink);font-size:13px}.target{border:1px solid var(--line);padding:6px 10px;border-radius:6px;white-space:nowrap}.target b{color:var(--ink);margin-left:5px}.array-wrap{max-width:560px;margin:22px auto 0;position:relative;padding-top:29px}.array{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.cell{text-align:center;position:relative}.value{height:88px;display:grid;place-items:center;background:#f2f6f8;border:2px solid #d5e1e6;border-radius:13px;font-size:34px;font-weight:700;transition:background .35s,border-color .35s,transform .35s;color:var(--ink)}.index{display:block;margin-top:9px;font:12px ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--muted)}.cell.first .value{background:var(--blue-bg);border-color:var(--blue);transform:translateY(-3px)}.cell.second .value{background:var(--purple-bg);border-color:var(--purple);transform:translateY(-3px)}.cell.found .value{background:var(--green-bg);border-color:var(--green);transform:translateY(-3px)}.cell.discarded .value{background:#f7f8f8;border-style:dashed;color:#6c7c85;border-color:#d4dddd}.cell.stored:not(.first):not(.found) .value{border-bottom:5px solid #6a9b86}.cell-note{display:block;height:18px;margin-top:5px;font-size:10px;font-weight:650;color:var(--muted)}.marker{position:absolute;top:0;width:25%;text-align:center;font-size:11px;font-weight:750;transition:left .55s ease;pointer-events:none;color:var(--blue)}.marker span{background:var(--blue-bg);border-radius:5px;padding:4px 8px}.marker::after{content:'↓';display:block;margin-top:3px;line-height:12px}.marker.second{color:var(--purple)}.marker.second span{background:var(--purple-bg)}.marker[hidden]{display:none}.connector{width:100%;height:25px;display:block;overflow:visible}.connector path{stroke:var(--blue);stroke-width:1.7;fill:none;vector-effect:non-scaling-stroke}.connector.success path{stroke:var(--green)}.calculation{text-align:center;min-height:67px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:4px 0 10px}.equation{font-size:29px;letter-spacing:-.6px;font-weight:700;font-variant-numeric:tabular-nums}.equation .a{color:var(--blue)}.equation .b{color:var(--purple)}.verdict{font-size:11px;font-weight:750;color:#8a511d;background:#fff0da;border-radius:6px;padding:7px 10px}.verdict.success{color:var(--green);background:var(--green-bg)}.reason{padding:13px 16px;background:#f4f8f6;border-left:3px solid #94baa6;border-radius:0 8px 8px 0;font-size:13px;line-height:1.6;min-height:67px}.reason strong{display:block;color:var(--green);font-size:11px;margin-bottom:3px}.support{padding:16px 28px 20px;border-top:1px solid var(--line);background:#fbfcfc;min-height:208px}.support-heading{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.support-heading h3{font-size:13px;margin:0}.support-heading span{font-size:11px;color:var(--muted)}.pair-grid{display:grid;grid-template-columns:58px repeat(3,1fr);gap:6px;text-align:center;font-size:11px;align-items:center}.grid-label{color:var(--muted);font:10px ui-monospace,SFMono-Regular,Consolas,monospace}.pair{padding:9px 2px;border:1px dashed #d6dfe3;background:#f7f9fa;border-radius:6px;color:var(--muted);font-variant-numeric:tabular-nums}.pair.checked{border-style:solid;background:#eaf0f3;color:#566b7a}.pair.current{border:2px solid var(--blue);padding:8px 1px;color:var(--blue);background:var(--blue-bg);font-weight:750}.pair.match{border:2px solid var(--green);padding:8px 1px;background:var(--green-bg);color:var(--green);font-weight:750}.pair small{display:block;font-size:9px;margin-top:2px}.proofs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.proof{border:1px solid var(--line);border-radius:9px;background:#fff;padding:16px 8px;text-align:center}.proof b{font-size:18px;display:block;margin:4px 0 8px}.proof span{font-size:11px;color:var(--muted)}.proof.best{background:var(--blue-bg);border-color:#b8cfee}.support-note{font-size:12px;color:var(--muted);line-height:1.6;margin:12px 0 0}.lookup{display:flex;align-items:center;gap:10px;font-size:12px;margin-bottom:12px;flex-wrap:wrap}.lookup strong{font:600 14px ui-monospace,SFMono-Regular,Consolas,monospace;padding:7px 10px;background:var(--blue-bg);border-radius:6px;color:var(--blue)}.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.entry{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 6px;text-align:center;font:700 18px ui-monospace,SFMono-Regular,Consolas,monospace}.entry small{font:10px ui-sans-serif,system-ui,sans-serif;color:var(--muted);display:block;margin-top:6px}.entry.new{border-color:var(--blue);background:var(--blue-bg)}.entry.hit{border:2px solid var(--green);background:var(--green-bg);color:var(--green)}.empty-map{border:1px dashed #becfc8;border-radius:8px;padding:18px;grid-column:1/-1;text-align:center;font-size:12px;color:var(--muted)}.controls{padding:12px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap}.controls button{font-size:12px;padding:9px 12px}.controls .primary{background:var(--green);border-color:var(--green);color:#fff}.controls .primary:hover:not(:disabled){background:#115f43}.speed{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}select{padding:7px;font-size:12px}.route{padding:20px 16px;background:#eaf0ed;border-radius:14px}.route h3{font-size:13px;margin:0 0 5px}.route>p{color:var(--muted);font-size:12px;line-height:1.6;margin:0 0 16px}.steps{list-style:none;padding:0;margin:0;display:grid;gap:5px}.steps button{width:100%;text-align:left;font-size:11px;font-weight:500;border:1px solid transparent;background:transparent;display:flex;align-items:center;gap:9px;padding:8px 6px;border-radius:8px;line-height:1.4}.steps .ordinal{height:22px;min-width:22px;border:1px solid #c1cfca;border-radius:50%;display:grid;place-items:center;font-size:10px}.steps button[aria-current=step]{background:#fff;border-color:#d9e2dd;color:var(--green);font-weight:700;box-shadow:0 2px 4px #102c1405}.steps button[aria-current=step] .ordinal{background:var(--green);color:#fff;border-color:var(--green)}.steps button.visited .ordinal{color:var(--green);border-color:#8caf9b;background:#deece3}.route .takeaway{border-top:1px solid #cddbd4;margin-top:18px;padding-top:14px;font-size:12px;line-height:1.6}.takeaway b{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;color:var(--green)}footer{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:11px;line-height:1.6;margin-top:18px}kbd{font:11px inherit;padding:1px 4px;border:1px solid #cbd7d2;border-radius:4px;background:#fff}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:900px){.workspace{grid-template-columns:minmax(0,1fr)}.route{order:2}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.route .takeaway{margin-top:12px}.problem-tag{display:none}main{max-width:780px}.explanation{min-height:0}}
+@media(max-width:520px){main{padding:20px 12px}h1{font-size:29px}header{margin-bottom:18px}header p{font-size:13px}nav{gap:6px}nav button{padding:12px 7px;gap:6px;font-size:12px}nav small{display:none}nav .number{font-size:10px}.explanation{padding:20px 17px}h2{font-size:22px}.caption{font-size:14px}.visual{padding:18px 16px 14px}.array{gap:9px}.value{height:72px;font-size:29px}.marker{font-size:10px}.marker span{padding:4px}.index{font-size:10px}.equation{font-size:25px}.support{padding:16px;min-height:208px}.controls{padding:12px;gap:6px}.controls button{padding:8px 10px}.speed{margin-left:0}.speed select{min-height:40px}.proof b{font-size:15px}.proof span{font-size:10px}.pair-grid{grid-template-columns:46px repeat(3,1fr);gap:5px}.support-heading{align-items:flex-start}.support-heading span{max-width:140px;text-align:right}footer{flex-direction:column;gap:4px}.steps button{font-size:10px}.reason{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div><div class="eyebrow">Arrays / a guided walkthrough</div><h1>Two Sum, one decision at a time.</h1><p>Same numbers: [1, 3, 4, 7]. Same target: 10. Three ways to find the pair.</p></div>
+    <div class="problem-tag">Find two different indexes<strong>nums[i] + nums[j] = 10</strong></div>
+  </header>
+  <nav aria-label="Choose a solution">
+    <button data-method="0" aria-pressed="true"><span class="number">01</span><span>Brute force<small>Try each later index</small></span></button>
+    <button data-method="1" aria-pressed="false"><span class="number">02</span><span>Two pointers<small>Use the sorted order</small></span></button>
+    <button data-method="2" aria-pressed="false"><span class="number">03</span><span>Hash map<small>Remember earlier indexes</small></span></button>
+  </nav>
+  <div class="workspace">
+    <section class="lesson" aria-labelledby="question">
+      <div class="explanation">
+        <div class="step-meta"><span class="phase" id="phase"></span><span id="step-count"></span></div>
+        <h2 id="question"></h2><p class="caption" id="caption"></p>
+      </div>
+      <div class="controls" aria-label="Walkthrough controls">
+        <button id="previous" aria-label="Previous step">← Back</button><button class="primary" id="next" aria-label="Next step">Next step →</button><button id="play" aria-pressed="false">Play</button><button id="restart">Restart</button>
+        <label class="speed">Speed <select id="speed"><option value="6500">Slow</option><option value="4200" selected>Normal</option><option value="2200">Fast</option></select></label>
+      </div>
+      <div class="visual">
+        <div class="array-heading"><strong id="array-label">The array</strong><span class="target">target <b>10</b></span></div>
+        <div class="array-wrap">
+          <div class="marker" id="first-marker" hidden><span></span></div>
+          <div class="marker second" id="second-marker" hidden><span></span></div>
+          <div class="array" role="list" aria-label="Array values and original indexes">
+            <div class="cell" role="listitem"><div class="value">1</div><span class="index">index 0</span><span class="cell-note"></span></div>
+            <div class="cell" role="listitem"><div class="value">3</div><span class="index">index 1</span><span class="cell-note"></span></div>
+            <div class="cell" role="listitem"><div class="value">4</div><span class="index">index 2</span><span class="cell-note"></span></div>
+            <div class="cell" role="listitem"><div class="value">7</div><span class="index">index 3</span><span class="cell-note"></span></div>
+          </div>
+          <svg class="connector" viewBox="0 0 400 25" preserveAspectRatio="none" aria-hidden="true"><path id="connection"></path></svg>
+        </div>
+        <div class="calculation"><div class="equation" id="equation"></div><span class="verdict" id="verdict"></span></div>
+        <div class="reason"><strong id="reason-label"></strong><span id="reason"></span></div>
+      </div>
+      <div class="support" id="support"></div>
+
+    </section>
+    <aside class="route" aria-label="Teaching steps">
+      <h3 id="route-title"></h3><p id="route-question"></p>
+      <ol class="steps" id="steps"></ol>
+      <div class="takeaway"><b>Keep in mind</b><span id="takeaway"></span></div>
+    </aside>
+  </div>
+  <p class="sr-only" id="announcement" role="status" aria-live="polite" aria-atomic="true"></p>
+  <footer><span>Take your time. Each step shows one decision.</span><span><kbd>←</kbd> <kbd>→</kbd> step · <kbd>Space</kbd> play / pause</span></footer>
+  <noscript><p>This walkthrough needs JavaScript enabled to show its teaching steps.</p></noscript>
+</main>
+<script>
+'use strict';
+const numbers = [1, 3, 4, 7];
+const target = 10;
+// Frames keep explanations and drawings together, including when stepping backward.
+const methods = [
+  {
+    title: 'Try each later index', question: 'How do we try every pair once?',
+    takeaway: 'Hold one number. Try only the numbers after it. Starting at first + 1 avoids reusing the same index and checking a reversed pair.',
+    steps: [
+      {label:'The problem', phase:'Start here', caption:'Find two different indexes whose values add to 10.', reason:'The large numbers are values. The small labels underneath are their indexes. We will return two of those indexes.', equation:'? + ? = 10', verdict:'Find a pair', checked:0},
+      {label:'Hold 1, try 3', phase:'Compare', caption:'Hold 1 in place. Try the number just after it.', a:0,b:1,checked:1, equation:'1 + 3 = 4', verdict:'4 ≠ 10', reason:'This pair does not reach 10. Keep first at index 0; next, move second to index 2.'},
+      {label:'Keep 1, try 4', phase:'Compare', caption:'Keep 1 in place. Move the second selection to 4.', a:0,b:2,checked:2,equation:'1 + 4 = 5',verdict:'5 ≠ 10',reason:'Only the second selection moved. This pair also misses the target, so try the last partner for 1.'},
+      {label:'Keep 1, try 7',phase:'Compare',caption:'Keep 1 in place. Try the last number, 7.',a:0,b:3,checked:3,equation:'1 + 7 = 8',verdict:'8 ≠ 10',reason:'We have checked every later partner for 1. None works, so the first selection can move on.'},
+      {label:'Advance the first selection',phase:'Move',caption:'1 has no partner. Now hold 3.',a:1,checked:3,discard:[0],equation:'3 + ? = 10',verdict:'First → index 1',reason:'Start the second selection just after 3. Going back to 1 would repeat a pair; choosing 3 itself would reuse one index.'},
+      {label:'Start just after 3',phase:'Compare',caption:'Start just after 3. Try 4.',a:1,b:2,checked:4,discard:[0],equation:'3 + 4 = 7',verdict:'7 ≠ 10',reason:'Keep first at index 1. There is one more later partner to try: 7 at index 3.'},
+      {label:'Predict the next sum',phase:'Predict',caption:'Keep 3. Try 7. What do they add up to?',a:1,b:3,checked:4,discard:[0],predict:true,equation:'3 + 7 = ?',verdict:'Think, then Next',reason:'Follow the two selections back to their index labels. If the sum is 10, which two indexes should we return?'},
+      {label:'The result',phase:'Found',caption:'Hold one number. Try only the numbers after it.',a:1,b:3,checked:5,discard:[0],found:true,equation:'3 + 7 = 10',verdict:'Return [1, 3]',reason:'Value 3 is at index 1. Value 7 is at index 3. Return [1, 3] and stop; the remaining pair does not need to be checked.'}
+    ]
+  },
+  {
+    title:'Why can the left pointer move?',question:'Why can we safely discard 1?',
+    takeaway:'The values must be sorted. If even the largest available partner is too small, the left value cannot work. Keep original indexes attached when sorting.',
+    steps:[
+      {label:'Start with sorted values',phase:'Start here',caption:'These values are already sorted, from smallest to biggest.',equation:'smallest → biggest',verdict:'Target 10',reason:'The original indexes stay underneath each value. This example is already sorted, so their order has not changed.'},
+      {label:'Try the two ends',phase:'Compare',caption:'1 + 7 makes 8. The target is 10.',a:0,b:3,equation:'1 + 7 = 8',verdict:'8 < 10 · too small',reason:'The left pointer selects the smallest value. The right pointer selects the biggest available partner. Pause before moving either pointer.'},
+      {label:'Pause and predict',phase:'Predict',caption:'Could 1 work with either of the smaller partners?',a:0,b:3,predict:true,equation:'1 + ? = 10',verdict:'Think, then Next',reason:'7 was already the biggest partner. Would replacing it with 3 or 4 make the sum larger or smaller?'},
+      {label:'See why it cannot work',phase:'Explain',caption:'3 and 4 are smaller than 7. They can only make a smaller sum.',a:0,b:3,proof:true,equation:'1 + 7 = 8',verdict:'Even the largest misses',reason:'Every possible partner for 1 gives a sum below 10. Moving the right pointer left would only make this sum smaller.'},
+      {label:'Discard 1',phase:'Decide',caption:'Even 1 + 7 is too small. So 1 cannot reach 10 with any partner.',a:0,b:3,discard:[0],proof:true,equation:'8 < 10',verdict:'Next: left →',reason:'We can rule out 1 completely. The next step moves the left pointer to a larger value while keeping the right pointer at 7.'},
+      {label:'Move the left pointer',phase:'Move',caption:'Move left to 3. Keep 7. What is the new sum?',a:1,b:3,discard:[0],predict:true,equation:'3 + 7 = ?',verdict:'Left → index 1',reason:'The left pointer moved one place to the right. The right pointer stayed at index 3. Compare this new pair with the target.'},
+      {label:'The result',phase:'Found',caption:'We moved left because the smallest value could not work.',a:1,b:3,discard:[0],found:true,equation:'3 + 7 = 10',verdict:'Return [1, 3]',reason:'The selected values reach 10. Their original indexes are 1 and 3, so return [1, 3].'}
+    ]
+  },
+  {
+    title:'Remember where each number was',question:'How does remembering a number save a search?',
+    takeaway:'Look up the missing partner before saving the current value. Each note maps a value to its earlier index, so one element cannot match itself.',
+    steps:[
+      {label:'The problem',phase:'Start here',caption:'Find two different indexes whose values add to 10.',saved:0,equation:'number + ? = 10',verdict:'Start with an empty map',reason:'As we visit the array, we will save each value and its index. That lets us look up a missing partner without scanning earlier elements again.'},
+      {label:'Look for 9',phase:'Look up',caption:'We are at 1. We need 9. Is it in the note?',a:0,saved:0,lookup:9,equation:'10 − 1 = 9',verdict:'9 is not saved',reason:'The map is empty. Check first; only after that lookup misses do we save the current value.'},
+      {label:'Remember 1 at index 0',phase:'Save',caption:'We need 9. It is not in the note, so remember 1 at index 0.',a:0,saved:1,insert:0,equation:'save 1 → index 0',verdict:'Saved',reason:'The entry means “value 1 was at index 0.” It is available for later elements to look up. Next, move to 3.'},
+      {label:'Look for 7',phase:'Look up',caption:'We are at 3. We need 7. Is it in the note?',a:1,saved:1,lookup:7,equation:'10 − 3 = 7',verdict:'7 is not saved',reason:'The map contains only 1. We have not visited 7 yet, so it is not available in the map. Save 3 after this missed lookup.'},
+      {label:'Remember 3 at index 1',phase:'Save',caption:'We need 7. It is not in the note, so remember 3 at index 1.',a:1,saved:2,insert:1,equation:'save 3 → index 1',verdict:'Saved',reason:'Now the note holds two earlier values and their indexes. Move to the next array element, 4.'},
+      {label:'Look for 6',phase:'Look up',caption:'We are at 4. We need 6. Is it in the note?',a:2,saved:2,lookup:6,equation:'10 − 4 = 6',verdict:'6 is not saved',reason:'Neither saved value is 6. The lookup misses, so the next step records where we found 4.'},
+      {label:'Remember 4 at index 2',phase:'Save',caption:'We need 6. It is not in the note, so remember 4 at index 2.',a:2,saved:3,insert:2,equation:'save 4 → index 2',verdict:'Saved',reason:'The map now holds 1 → 0, 3 → 1, and 4 → 2. We can use those saved indexes when visiting 7.'},
+      {label:'Name the missing partner',phase:'Predict',caption:'We are at 7. Which earlier number do we need?',a:3,saved:3,predict:true,equation:'10 − 7 = ?',verdict:'Think, then Next',reason:'Subtract the current value from the target. Then look for that result among the saved values below.'},
+      {label:'Use the saved index',phase:'Look up',caption:'Need 3? The note gives its earlier index: 1.',a:3,b:1,saved:3,lookup:3,hit:true,equation:'10 − 7 = 3',verdict:'Found 3 → index 1',reason:'The highlighted entry leads back to value 3 at index 1. Pair that earlier element with the current 7 at index 3.'},
+      {label:'The result',phase:'Found',caption:'The note gives index 1. The current number is at index 3.',a:3,b:1,saved:3,lookup:3,hit:true,found:true,equation:'3 + 7 = 10',verdict:'Return [1, 3]',reason:'Return the earlier index and the current index: [1, 3]. We found a partner before saving 7, so these are two different elements.'}
+    ]
+  }
+];
+const $ = selector => document.querySelector(selector);
+const cells = [...document.querySelectorAll('.cell')];
+let method = 0, step = 0, playing = false, timer = null;
+
+function pairGrid(frame) {
+  const pairs = [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]];
+  let html = '<div class="support-heading"><h3>Pairs we have tried</h3><span>Filled = checked · dashed = unvisited</span></div><div class="pair-grid"><span></span>';
+  for (let j=1;j<4;j++) html += `<span class="grid-label">second = ${j}</span>`;
+  for (let i=0;i<3;i++) {
+    html += `<span class="grid-label">first = ${i}</span>`;
+    for (let j=1;j<4;j++) {
+      if (j<=i) { html += '<span></span>'; continue; }
+      const checked = pairs.findIndex(p=>p[0]===i&&p[1]===j) < frame.checked;
+      const current = i===frame.a&&j===frame.b;
+      const state = current ? frame.found ? 'match' : 'current' : checked ? 'checked' : '';
+      const label = current ? frame.found ? 'match' : frame.predict ? 'predict' : 'current' : checked ? 'checked' : 'unvisited';
+      html += `<div class="pair ${state}">${numbers[i]} + ${numbers[j]} = ${checked ? numbers[i]+numbers[j] : '?'}<small>${label}</small></div>`;
+    }
+  }
+  return html + '</div>';
+}
+function pointerProof(frame) {
+  if (frame.proof) return '<div class="support-heading"><h3>Every possible partner for 1</h3><span>Why we can discard it</span></div><div class="proofs">' + [3,4,7].map(n=>`<div class="proof ${n===7?'best':''}"><span>${n===7?'Biggest partner':'Smaller partner'}</span><b>1 + ${n} = ${n+1}</b><span>${n+1} &lt; 10</span></div>`).join('') + '</div><p class="support-note">Even the biggest sum is only 8. None of these pairs can reach 10.</p>';
+  if (frame.found) return '<div class="support-heading"><h3>Read the original indexes</h3><span>The answer</span></div><div class="proofs"><div class="proof"><span>Value 3</span><b>index 1</b></div><div class="proof"><span>Value 7</span><b>index 3</b></div><div class="proof best"><span>Return</span><b>[1, 3]</b></div></div><p class="support-note">Sorting can change positions. Always return the original indexes attached to the values.</p>';
+  return `<div class="support-heading"><h3>${frame.a===1?'One pointer moved':'Use the order of the array'}</h3><span>smallest → biggest</span></div><div class="proofs"><div class="proof"><span>Left pointer</span><b>${frame.a===1?'1 → 3':'1'}</b><span>${frame.a===1?'Moved right':'Smallest value'}</span></div><div class="proof"><span>Right pointer</span><b>7</b><span>Biggest partner</span></div><div class="proof best"><span>We need</span><b>10</b><span>Two values together</span></div></div><p class="support-note">${frame.a===1?'1 is ruled out. Keep the larger partner, 7, and try the next left value.':'This walkthrough focuses on why a sum below the target lets us move the left pointer.'}</p>`;
+}
+function mapView(frame) {
+  const lookup = frame.lookup !== undefined ? `<div class="lookup"><strong>need ${frame.lookup}</strong><span>→ ${frame.hit?'found value 3 → original index 1':'not in the saved values'}</span></div>` : `<div class="lookup"><span>${frame.insert!==undefined?`Save value ${numbers[frame.insert]} → original index ${frame.insert}`:'Look up the needed value before saving the current one.'}</span></div>`;
+  const entries = numbers.slice(0,frame.saved).map((value,index)=>`<div class="entry ${frame.hit&&value===frame.lookup?'hit':frame.insert===index?'new':''}">${value} → ${index}<small>${frame.hit&&value===frame.lookup?'found earlier index':frame.insert===index?'just saved':'value → index'}</small></div>`).join('');
+  return '<div class="support-heading"><h3>The note / hash map</h3><span>value → original index</span></div>' + lookup + '<div class="map">' + (entries||'<div class="empty-map">{ } &nbsp; Empty. No earlier values saved yet.</div>') + '</div><p class="support-note">' + (frame.hit?'Follow 3 → 1 back to the array: index 1 contains the missing partner.':'The map contains only values we have already visited.') + '</p>';
+}
+function render() {
+  const lesson = methods[method], frame = lesson.steps[step];
+  $('#phase').textContent = frame.phase;
+  $('#step-count').textContent = `Step ${step+1} of ${lesson.steps.length}`;
+  $('#question').textContent = frame.label;
+  $('#caption').textContent = frame.caption;
+  $('#array-label').textContent = method===1 ? 'The array · already sorted' : 'The array · original order';
+  cells.forEach((cell,i)=>{
+    const first = i===frame.a, second = i===frame.b, found = frame.found&&(first||second), discarded = frame.discard?.includes(i);
+    cell.className = 'cell' + (first?' first':'') + (second?' second':'') + (found?' found':'') + (discarded?' discarded':'') + (i<frame.saved?' stored':'');
+    cell.querySelector('.index').textContent = `${method===1?'orig':'index'} ${i}`;
+    const note = found?'return this index':discarded?'ruled out':method===2&&i<frame.saved?'saved':'';
+    cell.querySelector('.cell-note').textContent = note;
+    cell.setAttribute('aria-label',`Value ${numbers[i]}, original index ${i}${first?', '+(method===2?'current':method===1?'left pointer':'first selection'):''}${second?', '+(method===2?'saved partner':method===1?'right pointer':'second selection'):''}${note?', '+note:''}`);
+  });
+  [['#first-marker',frame.a,method===0?'first':method===1?'L · left':'current'],['#second-marker',frame.b,method===0?'second':method===1?'R · right':'partner']].forEach(([selector,index,label])=>{
+    const marker=$(selector); marker.hidden=index===undefined;
+    if(index!==undefined){marker.style.left=`${index*25}%`;marker.querySelector('span').textContent=label;}
+  });
+  const hasPair = frame.a!==undefined&&frame.b!==undefined;
+  const left = Math.min(frame.a,frame.b)*100+50, right = Math.max(frame.a,frame.b)*100+50;
+  $('#connection').setAttribute('d',hasPair?`M ${left} 0 V 6 Q ${left} 12 ${left+7} 12 H ${right-7} Q ${right} 12 ${right} 6 V 0 M ${(left+right)/2} 12 V 24`:'');
+  $('.connector').classList.toggle('success',Boolean(frame.found));
+  $('#equation').textContent=frame.equation;
+  $('#verdict').textContent=frame.verdict;
+  $('#verdict').classList.toggle('success',Boolean(frame.found||frame.hit));
+  $('#reason-label').textContent=frame.found?'Why these indexes':frame.phase==='Predict'?'Before you continue':'What this tells us';
+  $('#reason').textContent=frame.reason;
+  $('#support').innerHTML=method===0?pairGrid(frame):method===1?pointerProof(frame):mapView(frame);
+  $('#previous').disabled=step===0;
+  $('#next').disabled=step===lesson.steps.length-1;
+  $('#play').textContent=playing?'Pause':step===lesson.steps.length-1?'Replay':'Play';
+  $('#play').setAttribute('aria-pressed',String(playing));
+  document.querySelectorAll('[data-step]').forEach(button=>{
+    const i=Number(button.dataset.step);
+    if(i===step)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');
+    button.classList.toggle('visited',i<step);
+  });
+  $('#announcement').textContent=`${lesson.title}. Step ${step+1} of ${lesson.steps.length}. ${frame.label}. ${frame.caption} ${frame.equation}. ${frame.verdict}. ${frame.reason}`;
+}
+function pause(){playing=false;clearTimeout(timer);timer=null;}
+function move(index){pause();step=Math.max(0,Math.min(methods[method].steps.length-1,index));render();}
+function schedule(){
+  clearTimeout(timer);
+  timer=setTimeout(()=>{
+    if(!playing)return;
+    step++;
+    const frame=methods[method].steps[step];
+    // Prediction steps wait for the learner instead of revealing an answer on a timer.
+    if(frame.predict||step===methods[method].steps.length-1)pause();
+    render();if(playing)schedule();
+  },Number($('#speed').value));
+}
+function togglePlay(){
+  if(playing){pause();render();return;}
+  if(step===methods[method].steps.length-1)step=0;
+  playing=true;render();schedule();
+}
+function selectMethod(index){
+  pause();method=index;step=0;
+  const lesson=methods[index];
+  document.querySelectorAll('[data-method]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.method)===index)));
+  $('#route-title').textContent=lesson.title;
+  $('#route-question').textContent=lesson.question;
+  $('#takeaway').textContent=lesson.takeaway;
+  $('#steps').innerHTML=lesson.steps.map((frame,i)=>`<li><button data-step="${i}"><span class="ordinal">${i+1}</span><span>${frame.label}</span></button></li>`).join('');
+  render();
+}
+document.querySelectorAll('[data-method]').forEach(button=>button.addEventListener('click',()=>selectMethod(Number(button.dataset.method))));
+$('#steps').addEventListener('click',event=>{const button=event.target.closest('[data-step]');if(button)move(Number(button.dataset.step));});
+$('#previous').addEventListener('click',()=>move(step-1));
+$('#next').addEventListener('click',()=>move(step+1));
+$('#restart').addEventListener('click',()=>move(0));
+$('#play').addEventListener('click',togglePlay);
+$('#speed').addEventListener('change',()=>{if(playing)schedule();});
+document.addEventListener('keydown',event=>{
+  if(event.altKey||event.ctrlKey||event.metaKey||event.target.closest('button,select,input,textarea,a,[contenteditable]'))return;
+  if(event.key==='ArrowRight'){event.preventDefault();move(step+1);}
+  if(event.key==='ArrowLeft'){event.preventDefault();move(step-1);}
+  if(event.code==='Space'){event.preventDefault();togglePlay();}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();render();}});
+selectMethod(0);
+</script>
+</body>
+</html>
